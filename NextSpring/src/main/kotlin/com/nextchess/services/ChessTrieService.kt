@@ -15,10 +15,18 @@ import kotlin.collections.LinkedHashMap
 
 @Service
 class ChessTrieService(private val masterGameRepo: MasterGameRepository) {
-    private val trie: ChessTrie = ChessTrie()
+    private val trie: ChessTrie by lazy { initializeTrie() }
     private val stockfish = StockfishWrapper()
     private val cacheSizeLimit: Int = 250
 
+    private fun initializeTrie(): ChessTrie {
+        val trie = ChessTrie()
+        val games: List<MasterGame> = masterGameRepo.findAll()
+        games.forEach { game ->
+            trie.insert(game.moves.take(40))
+        }
+        return trie
+    }
 
     private val evaluationsCache: MutableMap<String, EvaluationResponse> = Collections.synchronizedMap(
         object : LinkedHashMap<String, EvaluationResponse>(16, 0.75f, true) {
@@ -100,11 +108,11 @@ class ChessTrieService(private val masterGameRepo: MasterGameRepository) {
         }
     }
 
-    @PostConstruct
-    fun initialize() {
-        val games: MutableList<MasterGame> = masterGameRepo.findAll()
-        games.forEach { game ->
-            trie.insert(game.moves.take(40))
-        }
-    }
+//    @PostConstruct
+//    fun initialize() {
+//        val games: MutableList<MasterGame> = masterGameRepo.findAll()
+//        games.forEach { game ->
+//            trie.insert(game.moves.take(40))
+//        }
+//    }
 }

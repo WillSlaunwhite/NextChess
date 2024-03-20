@@ -3,7 +3,7 @@ export async function fetchAllOpenings(): Promise<OpeningDTO[]> {
     if (!res.ok) {
         throw new Error(`Error: ${res.status}`);
     }
-    const data = res.json();
+    const data = await res.json();
     console.log("in api service \n" + data);
     return data;
 }

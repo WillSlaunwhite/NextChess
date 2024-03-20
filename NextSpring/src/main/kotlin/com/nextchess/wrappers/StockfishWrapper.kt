@@ -8,7 +8,7 @@ import java.time.Instant
 
 
 class StockfishWrapper {
-    private val possiblePaths = listOf("/usr/games/stockfish", "/usr/local/bin/stockfish", "stockfish")
+    private val possiblePaths = listOf("/home/linuxbrew/.linuxbrew/bin/stockfish", "/usr/local/bin/stockfish", "stockfish")
     private lateinit var processBuilder: ProcessBuilder
     private lateinit var process: Process
     private lateinit var reader: BufferedReader

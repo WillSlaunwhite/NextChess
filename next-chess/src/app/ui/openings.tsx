@@ -10,8 +10,8 @@ interface OpeningsMenuProps {
 
 const lusi = Lusitana({ subsets: ["latin"], weight: "400" });
 
-const OpeningsMenu: React.FC<OpeningsMenuProps> = ({ openings }) => {
-    
+const OpeningsMenu: React.FC<OpeningsMenuProps> = ({ openings = [] }) => {
+
     return (
         <div className={`${lusi.className} min-h-screen`}>
             <Typography variant="h4" className={`${lusi.className}`}>Select an Opening to Practice</Typography>

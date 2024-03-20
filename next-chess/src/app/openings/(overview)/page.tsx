@@ -1,5 +1,3 @@
-'use server';
-
 import { fetchAllOpenings } from "@/app/services/apiService";
 import OpeningsMenu from "@/app/ui/openings";
 

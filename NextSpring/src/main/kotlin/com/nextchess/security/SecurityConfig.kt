@@ -1,6 +1,5 @@
 package com.nextchess.security
 
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
@@ -30,6 +29,7 @@ class SecurityConfig(
                         "authenticate",
                         "api/test",
                         "api/openings/**",
+                        "api/chess/**",
                     ).permitAll()
                     .anyRequest().authenticated()
             }
@@ -38,8 +38,11 @@ class SecurityConfig(
                     "authenticate",
                     "api/test",
                     "api/openings/**",
+                    "api/chess/**",
                 )
             }
+            .cors() { it.configurationSource(corsConfigurationSource()) }
+//            .cors { it.disable() }
         return http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter::class.java).build()
     }
 
@@ -55,9 +58,8 @@ class SecurityConfig(
 
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
-
         val configuration = CorsConfiguration()
-        configuration.allowedOrigins = listOf("https://localhost:3000") // Adjust this to your frontend's domain
+        configuration.allowedOrigins = listOf("*") // Adjust this to your frontend's domain
         configuration.allowedMethods = listOf("GET", "POST") // And any other methods you use
         val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/**", configuration)

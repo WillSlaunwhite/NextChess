@@ -7,11 +7,11 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@CrossOrigin("*", "http://localhost")
-@RequestMapping("/api/openings")
+@CrossOrigin("*", "http://localhost", "127.0.0.1", "3.15.142.176")
+@RequestMapping("api/openings")
 class OpeningController(private val openingService: OpeningService) {
 
-    @GetMapping("/{openingName}/start")
+    @GetMapping("{openingName}/start")
     fun startOpening(@PathVariable openingName: String): ResponseEntity<OpeningDTO> {
         val formattedOpeningName = openingName.replace("-", " ")
         return openingService.getOpeningByName(formattedOpeningName)?.let {
@@ -19,7 +19,7 @@ class OpeningController(private val openingService: OpeningService) {
         } ?: ResponseEntity.notFound().build()
     }
 
-    @GetMapping("/{openingName}/start/detail")
+    @GetMapping("{openingName}/start/detail")
     fun startOpeningDetailed(@PathVariable openingName: String): ResponseEntity<DetailedOpeningDTO> {
         val formattedOpeningName = openingName.replace("-", " ")
         return openingService.getDetailedOpeningByName(formattedOpeningName)?.let {
@@ -27,7 +27,7 @@ class OpeningController(private val openingService: OpeningService) {
         } ?: ResponseEntity.notFound().build()
     }
 
-    @GetMapping("", "/", "/home")
+    @GetMapping("")
     fun getAllOpenings(): ResponseEntity<List<OpeningDTO>> {
         return ResponseEntity.ok(openingService.getOpenings())
     }

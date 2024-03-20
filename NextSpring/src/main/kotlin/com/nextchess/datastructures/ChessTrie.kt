@@ -51,7 +51,7 @@ class ChessTrie {
     fun printTrie(node: ChessTrieNode, prefix: String = "") {
         println("$prefix${if (node.frequency > 0) "($node.frequency)" else ""}")
         for ((move, child) in node.children) {
-            printTrie(child, prefix + move + " -> ")
+            printTrie(child, "$prefix$move -> ")
         }
     }
 }
