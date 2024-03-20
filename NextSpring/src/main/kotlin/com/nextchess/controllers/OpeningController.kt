@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin("*", "http://localhost")
 @RequestMapping("/api/openings")
 class OpeningController(private val openingService: OpeningService) {
 
@@ -27,7 +27,7 @@ class OpeningController(private val openingService: OpeningService) {
         } ?: ResponseEntity.notFound().build()
     }
 
-    @GetMapping("/")
+    @GetMapping("", "/", "/home")
     fun getAllOpenings(): ResponseEntity<List<OpeningDTO>> {
         return ResponseEntity.ok(openingService.getOpenings())
     }

@@ -7,9 +7,9 @@ interface ButtonProps {
     content: string
 }
 
-export const TestButton: React.FC<PropsWithChildren<ButtonProps>> = ({ children, content }) => {
+export const TestButton: React.FC<PropsWithChildren<ButtonProps>> = ({ content }) => {
     return (
-        <Button placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>{content}</Button>
+        <Button>{content}</Button>
     )
 }
 

@@ -1,3 +1,5 @@
 'use client';
 
-export { ThemeProvider } from "@material-tailwind/react";
+
+
+export { ThemeProvider, Typography, Button, List, Card, ListItem } from "@material-tailwind/react";
