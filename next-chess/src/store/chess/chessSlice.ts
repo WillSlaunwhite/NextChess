@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const startingFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
-interface GlobalState {
+export interface GlobalState {
     currentLineIndex: number,
     initialMoves: string[],
     highlightedSquares: string[],
@@ -13,7 +13,7 @@ interface GlobalState {
     evaluationsCache: Record<string, number>
 }
 
-interface LineState {
+export interface LineState {
     colorOfPiece: string,
     computerColor: "black" | "white",
     evaluation: number,
@@ -31,7 +31,7 @@ interface LineState {
     san: string,
 };
 
-interface GameState {
+export interface GameState {
     global: GlobalState;
     lines: LineState[];
 }

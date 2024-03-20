@@ -1,6 +1,3 @@
-'use client';
-
-import React from 'react';
 import { Card, List, ListItem, Typography } from '../../../providers';
 import { Lusitana } from 'next/font/google';
 
@@ -10,7 +7,7 @@ interface OpeningsMenuProps {
 
 const lusi = Lusitana({ subsets: ["latin"], weight: "400" });
 
-const OpeningsMenu: React.FC<OpeningsMenuProps> = ({ openings = [] }) => {
+const OpeningsMenu: React.FC<OpeningsMenuProps> = ({ openings }) => {
 
     return (
         <div className={`${lusi.className} min-h-screen`}>
