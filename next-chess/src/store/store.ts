@@ -1,12 +1,13 @@
-import { configureStore } from '@reduxjs/toolkit';
-import userReducer from '@/store/user/userSlice'
-import chessReducer from '@/store/chess/chessSlice';
 import globalReducer from '@/store/global/globalSlice';
+import userReducer from '@/store/user/userSlice';
+import chessReducer from '@/store/chess/chessSlice';
+import { configureStore } from '@reduxjs/toolkit';
 
 export const store = configureStore({
     reducer: {
         user: userReducer,
         global: globalReducer,
+        chess: chessReducer,
     }
 })
 

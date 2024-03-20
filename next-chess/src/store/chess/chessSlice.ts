@@ -74,14 +74,18 @@ const initialState: GameState = {
 
 export const chessSlice = createSlice({
     name: 'chess',
-    initialState: [defaultLine, defaultLine, defaultLine],
+    initialState: initialState,
     reducers: {
-        updateLineState: (state, action: PayloadAction<{index: number, lineState: LineState}>) => {
-            const { index, lineState }= action.payload;
-            state[index] = lineState;
-        }
+        deactivateLine: (state, action: PayloadAction<number>) => {
+            state.lines[action.payload].isActive = false;
+        },
+        updateLineState: (state, action: PayloadAction<{ index: number, lineState: LineState }>) => {
+            const { index, lineState } = action.payload;
+            state.lines[index] = lineState;
+        },
     }
 })
 
+export const { updateLineState } = chessSlice.actions;
 
 export default chessSlice.reducer;
