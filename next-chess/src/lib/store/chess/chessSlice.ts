@@ -79,6 +79,10 @@ export const chessSlice = createSlice({
         deactivateLine: (state, action: PayloadAction<number>) => {
             state.lines[action.payload].isActive = false;
         },
+        initGame: (state, action: PayloadAction<{global: GlobalState; lines: LineState[]}>) => {
+            state.global = action.payload.global;
+            state.lines = action.payload.lines;
+        },
         updateLineState: (state, action: PayloadAction<{ index: number, lineState: LineState }>) => {
             const { index, lineState } = action.payload;
             state.lines[index] = lineState;
@@ -86,6 +90,6 @@ export const chessSlice = createSlice({
     }
 })
 
-export const { updateLineState } = chessSlice.actions;
+export const { deactivateLine, initGame, updateLineState } = chessSlice.actions;
 
 export default chessSlice.reducer;

@@ -1,5 +1,5 @@
 import { Chess, Move, Piece, Square } from "chess.js";
-import { LineState } from "@/store/chess/chessSlice";
+import { LineState } from "@/lib/store/chess/chessSlice";
 
 
 export function appendToMoveHistory(history: string[], san: string): string[] {

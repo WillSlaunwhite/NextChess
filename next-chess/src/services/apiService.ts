@@ -1,15 +1,16 @@
-import { LineState, GlobalState } from "@/store/chess/chessSlice";
+import { LineState, GlobalState } from "@/lib/store/chess/chessSlice";
 import { convertOpeningVariationsBaseSequenceToFullSequence, convertToFullMoves, getFensFromMoveSequences } from "@/utils/chessUtils";
 
 // * EVALUATION
 
 interface EvaluationResponse { evaluation: number, principalVariation: string }
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export async function fetchEvaluation(fen: string, move: string): Promise<{ bestMove: string, centipawns: number, principalVariation: string }> {
     move = move.split(" ").length > 1 ? move.split(" ")[1] : move;
 
     try {
-        return fetch('http://localhost:8085/api/chess/evaluate', {
+        return fetch(`${baseUrl}/api/chess/evaluate`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -34,7 +35,7 @@ export async function fetchEvaluation(fen: string, move: string): Promise<{ best
 
 export async function fetchNextMoveForSequence(sequence: string[], fen: string): Promise<string> {
     try {
-        const response = await fetch('http://localhost:8085/api/chess/next-moves', {
+        const response = await fetch(`${baseUrl}/api/chess/evaluate`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -47,6 +48,8 @@ export async function fetchNextMoveForSequence(sequence: string[], fen: string):
         }
 
         const data = await response.json();
+
+        console.log(data);
 
         const probableMoves = Object.entries(data[0]);
         probableMoves.sort(((a: any, b: any) => b[1] - a[1]));
@@ -72,7 +75,7 @@ export async function fetchNextMoveForSequence(sequence: string[], fen: string):
 // * OPENINGS
 
 export async function fetchAllOpenings(): Promise<OpeningDTO[]> {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/openings`);
+    const res = await fetch(`${baseUrl}/api/openings`);
     if (!res.ok) {
         throw new Error(`Error: ${res.status}`);
     }
