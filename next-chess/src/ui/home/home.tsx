@@ -1,8 +1,10 @@
+import { Suspense } from 'react';
 import OpeningsMenu from '../openings/openings';
+import OpeningCardSkeleton from '../openings/skeleton';
 
-export const HomeComponent: React.FC = async () => {
+export const HomeComponent: React.FC = () => {
   return (
-    <main className="h-screen w-full bg-gray-300">
+    <main className="h-screen w-full ">
       <OpeningsMenu />
     </main>
   );

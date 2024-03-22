@@ -1,6 +1,6 @@
 import { HomeComponent } from "@/ui/home/home";
 
-export default function Page() {
+export default async function Page() {
   return (
     <div className="min-h-screen flex flex-col">
       <HomeComponent />

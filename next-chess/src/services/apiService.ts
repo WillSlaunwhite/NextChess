@@ -1,9 +1,11 @@
 import { LineState, GlobalState } from "@/lib/store/chess/chessSlice";
 import { convertOpeningVariationsBaseSequenceToFullSequence, convertToFullMoves, getFensFromMoveSequences } from "@/utils/chessUtils";
+import { unstable_noStore as noStore } from 'next/cache';
 
 // * EVALUATION
 
 interface EvaluationResponse { evaluation: number, principalVariation: string }
+
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export async function fetchEvaluation(fen: string, move: string): Promise<{ bestMove: string, centipawns: number, principalVariation: string }> {
@@ -34,8 +36,9 @@ export async function fetchEvaluation(fen: string, move: string): Promise<{ best
 // * NEXT MOVES
 
 export async function fetchNextMoveForSequence(sequence: string[], fen: string): Promise<string> {
+    console.log(sequence + "\n" + fen);
     try {
-        const response = await fetch(`${baseUrl}/api/chess/evaluate`, {
+        const response = await fetch(`${baseUrl}/api/chess/next-moves`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -75,6 +78,7 @@ export async function fetchNextMoveForSequence(sequence: string[], fen: string):
 // * OPENINGS
 
 export async function fetchAllOpenings(): Promise<OpeningDTO[]> {
+    noStore();
     const res = await fetch(`${baseUrl}/api/openings`);
     if (!res.ok) {
         throw new Error(`Error: ${res.status}`);
